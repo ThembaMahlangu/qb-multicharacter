@@ -214,3 +214,23 @@ QBCore.Commands.Add('deletechar', Lang:t('commands.deletechar_description'), { {
         TriggerClientEvent('QBCore:Notify', source, Lang:t('notifications.forgot_citizenid'), 'error')
     end
 end, 'god')
+
+-- Resource Stop Handler
+AddEventHandler('onResourceStop', function(resourceName)
+    if resourceName == 'qb-multicharacter' then
+        local success, players = pcall(function()
+            return QBCore.Functions.GetPlayers()
+        end)
+        
+        if success and players then
+            for _, src in ipairs(players) do
+                print(src)
+                if src then
+                    QBCore.Player.Logout(src)
+                end
+            end
+        else
+            print('Failed to get players list')
+        end
+    end
+end)
