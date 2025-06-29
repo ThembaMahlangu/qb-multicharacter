@@ -180,7 +180,10 @@ QBCore.Functions.CreateCallback('qb-multicharacter:server:GetNumberOfCharacters'
     else
         numOfChars = Config.DefaultNumberOfCharacters
     end
-    cb(numOfChars, Countries)
+    
+    local countriesFile = LoadResourceFile(GetCurrentResourceName(), 'countries.json')
+    local countries = json.decode(countriesFile)
+    cb(numOfChars, countries)
 end)
 
 QBCore.Functions.CreateCallback('qb-multicharacter:server:setupCharacters', function(source, cb)
