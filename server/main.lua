@@ -163,7 +163,7 @@ QBCore.Functions.CreateCallback('qb-multicharacter:server:GetServerLogs', functi
     end)
 end)
 
-QBCore.Functions.CreateCallback('qb-multicharacter:server:GetNumberOfCharacters', function(source, cb)
+QBCore.Functions.CreateCallback("qb-multicharacter:server:GetNumberOfCharacters", function(source, cb)
     local src = source
     local license = QBCore.Functions.GetIdentifier(src, 'license')
     local numOfChars = 0
@@ -180,7 +180,10 @@ QBCore.Functions.CreateCallback('qb-multicharacter:server:GetNumberOfCharacters'
     else
         numOfChars = Config.DefaultNumberOfCharacters
     end
-    cb(numOfChars, Countries)
+    
+    local countriesFile = LoadResourceFile(GetCurrentResourceName(), "countries.json")
+    local countries = json.decode(countriesFile)
+    cb(numOfChars, countries)
 end)
 
 QBCore.Functions.CreateCallback('qb-multicharacter:server:setupCharacters', function(source, cb)
